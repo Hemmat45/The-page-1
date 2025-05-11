@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Lab Registry</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">RSPL Registration Form</h4>
+            </div>
+            <div class="card-body">
+                <form id="registrationForm">
+                    <!-- Registration Details -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="uniqueCode" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="registrationDateTime" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Patient Information -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>Patient Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-2">
+                                    <select class="form-select" id="courtesyTitle" autofocus>
+                                        {% for title in courtesy_titles %}
+                                        <option value="{{ title }}">{{ title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="name" placeholder="Patient name*" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="age" placeholder="Age">
+                                        <select class="form-select" id="ageUnit">
+                                            <option value="Years">Years</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Days">Days</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text">+91</span>
+                                        <input type="tel" class="form-control" id="whatsappNo" maxlength="10" placeholder="WhatsApp number">
+                                    </div>
+                                </div>
+                                <input type="hidden" id="gender">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Information -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>Doctor Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="referredBy" list="doctorsList" placeholder="Dr. Name">
+                                    <datalist id="doctorsList">
+                                        {% for doctor in doctors %}
+                                        <option value="{{ doctor.name }}">
+                                        {% endfor %}
+                                    </datalist>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text">+91</span>
+                                        <input type="tel" class="form-control" id="doctorWhatsappNo" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Selection -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>Test Table</h5>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="testCode" placeholder="Enter test code">
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table" id="testsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Information -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>Payment Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label>Total Amount (₹)</label>
+                                    <input type="number" class="form-control" id="totalAmount" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Discount (₹)</label>
+                                    <input type="number" class="form-control" id="discount">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Paid Amount (₹)</label>
+                                    <input type="number" class="form-control" id="paidAmount">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Balance (₹)</label>
+                                    <input type="number" class="form-control" id="balance" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Save Registration
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/registration.js') }}"></script>
+</body>
+</html>

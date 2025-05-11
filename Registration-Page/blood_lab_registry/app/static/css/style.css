@@ -1,0 +1,12 @@
+
+.form-control:read-only {
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    margin-bottom: 0.25rem;
+}
